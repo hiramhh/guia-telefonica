@@ -14,15 +14,21 @@ function App() {
 
   const addPerson = (event) => {
     event.preventDefault();
-    const personObject = {
-      name: newName,
-      date: new Date().toISOString(),
-      id: persons.length + 1
+    const checkName = persons.map(item => item.name).includes(newName);
+
+    if(checkName){
+      alert(`${newName} is already added to phonebook`);
+      setNewName("");
+    } else {
+      const personObject = {
+        name: newName,
+        date: new Date().toISOString(),
+        id: persons.length + 1
+      }
+  
+      setPersons(persons.concat(personObject));
+      setNewName("");
     }
-
-    setPersons(persons.concat(personObject));
-
-    setNewName("")
   }
 
   const handleNameChange = (event) => {

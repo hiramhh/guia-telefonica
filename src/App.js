@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import Person from "./components/Persons";
+import Persons from "./components/Persons";
+import FilterName from "./components/FilterNames";
 
 function App() {
   const [persons, setPersons] = useState([
@@ -10,6 +11,7 @@ function App() {
   ]);
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
+  const [filter, setFilter] = useState("");
 
   const handleNameChange = (event) => {
     setNewName(event.target.value);
@@ -18,10 +20,6 @@ function App() {
   const handleNumberChange = (event) => {
     setNewNumber(event.target.value);
   }
-
-  const personsList = persons.map((person) => {
-    return <Person key={person.id} person={person} />
-  } );
 
 
 
@@ -57,6 +55,7 @@ function App() {
   return (
     <div>
       <h2>Phonebook</h2>
+      <FilterName filter={filter} setFilter={setFilter}/>
       <form onSubmit={addPerson}>
         <div>
           name: <input 
@@ -75,7 +74,8 @@ function App() {
         </div>
       </form>
       <h2>Number</h2>
-      {personsList}
+      <Persons persons={persons} filter={filter}/>
+      debug: {filter}
     </div>
   );
   }
